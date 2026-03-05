@@ -26,5 +26,18 @@ class gameService {
             console.log(error)
         }
     }
+
+    //Método para excluir um jogo
+    async Delete(id) {
+        try{
+            // excluindo um jogo pela id
+            await Game.findByIdAndDelete(id)
+            console.log(`game com a id ${id} foi deletado.`)
+
+        }catch(error){
+            console.log(error)
+            
+        }
+    }
 }
 export default new gameService();

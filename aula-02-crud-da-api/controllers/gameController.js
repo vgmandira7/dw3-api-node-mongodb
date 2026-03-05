@@ -1,6 +1,7 @@
 //Durante ao tratamento de requisição ele vai usar um serviço
 // importando services
 import gameService from "../services/gamesService.js";
+import {ObjectId} from 'mongodb'
 
 // Função para tratar a requisição de listar os jogos
 const getAllGames = async (req, res) => {
@@ -34,5 +35,25 @@ const createGame = async(req, res) => {
     }
 }
 
+//Função para deletar um jogo
+const deleteGame = async (req, res) => {
+    try{
+        const id = req.params.id
+        //Coletando a id 
+        //validação do id
+        if (ObjectId.isValid(id)){
+            await gameService.Delete(id)
+            res.status(204).json({message: 'O jogo foi excluido com sucesso'})
+            //cod. 204 (no content)
+        } else {
+            res.status(400).json({ error: 'Ocorreu um erro na validação da ID'})
+        }
+            
+    } catch(error) {
+        console.log(error)
+        res.status(500).json({ error: 'Erro intenso do servidor'})
+    }
+}
 
-export default {getAllGames, createGame}
+
+export default {getAllGames, createGame, deleteGame}
