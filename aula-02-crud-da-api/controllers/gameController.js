@@ -43,13 +43,30 @@ const deleteGame = async (req, res) => {
         //validação do id
         if (ObjectId.isValid(id)){
             await gameService.Delete(id)
-            res.status(204).json({message: 'O jogo foi excluido com sucesso'})
+            res.status(200).json({message: 'O jogo foi excluido com sucesso'})
             //cod. 204 (no content)
         } else {
             res.status(400).json({ error: 'Ocorreu um erro na validação da ID'})
         }
             
     } catch(error) {
+        console.log(error)
+        res.status(500).json({ error: 'Erro intenso do servidor'})
+    }
+}
+
+//função para alterar jogo
+const UpdateGame = async (req, res) => {
+    try{
+        const id = req.params.id
+         if (ObjectId.isValid(id)){
+            const {title, platform, year, price} = req.body
+
+            await gameService.Update(id, title, platform, year, price)
+            res.status(200).json({message: 'O jogo foi updeitado com sucesso'})
+            //cod. 204 (no content)
+         }
+    } catch(error){
         console.log(error)
         res.status(500).json({ error: 'Erro intenso do servidor'})
     }
