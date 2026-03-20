@@ -10,14 +10,14 @@ class gameService {
         }
     }
     // Método para cadastrar um game
-    async Create(title, platform, year, price){
+    async Create(title, year, price, descriptions){
         try{
             const newGame = new Game({
                 // desestruturação é não repetir os campo, exemplo title : title
                 title, 
-                platform, 
                 year, 
-                price
+                price,
+                descriptions
             })
             //Gravando no banco
             await newGame.save() //.save() método do mongoose para cadastrar no bd
@@ -40,26 +40,28 @@ class gameService {
         }
     }
     //Método para alterar um jogo
-    async Update(id, title, platform, year, price){
+    async Update(id, title, year, price, descriptions){
         try{
             await Game.findByIdAndUpdate(id, {
                 title,
-                platform,
+                
                 year,
-                price
+                price,
+                descriptions
             })
             console.log(`O jogo com a id ${id} foi alterado`)
         }catch(error){
             console.log(error)
         }
     }
-    async Update (id, title, platform, year, price) {
+    async Update (id, title, year, price, descriptions) {
         try{
             const gameUpdate = await Game.findByIdAndUpdate(id, {
                 title,
-                platform,
+                
                 year,
                 price,
+                descriptions
             },
             { new: true }
         )
@@ -80,6 +82,10 @@ class gameService {
             console.log(error)
         }
     }
+
+    
+
+    
 }
 
 

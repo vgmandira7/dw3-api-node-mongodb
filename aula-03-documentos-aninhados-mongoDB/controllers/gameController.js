@@ -24,9 +24,9 @@ const createGame = async(req, res) => {
         // const title
         // const platform
 
-        const {title, platform, year, price} = req.body
+        const {title, year, price, descriptions} = req.body
         // Passando os dados para o service
-        await gameService.Create(title, platform, year, price)
+        await gameService.Create(title, year, price, descriptions)
         res.status(201).json({message: 'O jogo foi cadastrado com sucesso!'})
         // cod 201 - created um novo recurso foi criado no servidor
     }catch(error) {
@@ -60,9 +60,9 @@ const UpdateGame = async (req, res) => {
     try{
         const id = req.params.id
          if (ObjectId.isValid(id)){
-            const {title, platform, year, price} = req.body
+            const {title, year, price, descriptions} = req.body
 
-           const game =  await gameService.Update(id, title, platform, year, price)
+           const game =  await gameService.Update(id, title, year, price, descriptions)
             res.status(200).json({message: 'O jogo foi updeitado com sucesso', game : game})
             //cod. 204 (no content)
          }

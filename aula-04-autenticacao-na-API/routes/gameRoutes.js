@@ -10,6 +10,8 @@ gameRoutes.get("/games", gameController.getAllGames)
 
 
 
+
+
 //Endpoint para cadastrar um game
 gameRoutes.post("/games", gameController.createGame)
 
